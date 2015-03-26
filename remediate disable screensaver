@@ -1,0 +1,59 @@
+#!/bin/sh
+############################################################################
+#
+#About this Script
+#
+# script to search for a hot corner set to disable screen saver, if found will modify value to 1 to turn it off. 
+#
+# Created by
+# Jennifer Unger
+#
+############################################################################
+
+# Key wvous-$$-corner in the com.apple.dock plist designates this value.  
+# $$is equal to the corner in question, Tl-top left, TR-top right, BL-bottom left, BR-bottom right
+
+BL=`defaults read ~/Library/Preferences/com.apple.dock.plist wvous-bl-corner`
+TL=`defaults read ~/Library/Preferences/com.apple.dock.plist wvous-tl-corner`
+TR=`defaults read ~/Library/Preferences/com.apple.dock.plist wvous-tr-corner`
+BR=`defaults read ~/Library/Preferences/com.apple.dock.plist wvous-br-corner`
+
+# Bottom Left
+if [ "$BL" = "6" ];
+then defaults write ~/Library/Preferences/com.apple.dock.plist wvous-bl-corner -int 1
+
+else
+
+echo "na"
+
+fi
+
+# Bottom Right
+if [ "$BR" = "6" ];
+then defaults write ~/Library/Preferences/com.apple.dock.plist wvous-br-corner -int 1
+
+else
+
+echo "na"
+
+fi
+
+# Top Left
+if [ "$TL" = "6" ];
+then defaults write ~/Library/Preferences/com.apple.dock.plist wvous-tl-corner -int 1
+
+else
+
+echo "na"
+
+fi
+
+# Top Right
+if [ "$TR" = "6" ];
+then defaults write ~/Library/Preferences/com.apple.dock.plist wvous-tr-corner -int 1
+
+else
+
+echo "na"
+
+fi
