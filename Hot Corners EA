@@ -1,0 +1,90 @@
+#!/bin/sh
+
+# extension attribute to search for a hot corner set to disable screen saver.  You can modify it to search for any setting by changing the value of the 'setting' variable below.  
+#
+# Key wvous-$$-corner in the com.apple.dock plist designates this value.  
+# $$is equal to the corner in question, Tl-top left, TR-top right, BL-bottom left, BR-bottom right
+# This can be modified to search for any value set as a hot corner.  
+# Values are as follows (as seen on a 10.10.2 system March 2015)
+# 1 = Null
+# 2= Mission Control
+# 3= Application Windows
+# 4= Desktop
+# 5= Start Screen Saver
+# 6= Disable Screen Saver
+# 7= Dashboard
+# 10= Display Sleep
+# 11= Launch Pad
+# 12= Notification Center
+
+#define the bad value
+
+setting=6
+
+#Get the current Value
+
+BL=`defaults read ~/Library/Preferences/com.apple.dock.plist wvous-bl-corner`
+TL=`defaults read ~/Library/Preferences/com.apple.dock.plist wvous-tl-corner`
+TR=`defaults read ~/Library/Preferences/com.apple.dock.plist wvous-tr-corner`
+BR=`defaults read ~/Library/Preferences/com.apple.dock.plist wvous-br-corner`
+	
+#compare them
+#Bottom Left
+if [ "$BL" = "6" ];
+
+	then 
+
+		echo "<result>active</result>"
+
+	else
+
+		echo "<result>not active</result>"
+
+fi
+
+
+
+#Bottom Right
+if [ "$BR" = "6" ];
+
+	then 
+
+		echo "<result>active</result>"
+
+	else
+
+		echo "<result>not active</result>"
+
+fi
+
+
+
+#Top Left
+if [ "$TL" = "6" ];
+
+	then 
+
+		echo "<result>active</result>"
+
+	else
+
+		echo "<result>not active</result>"
+
+fi
+
+#Top Right
+if [ "$TR" = "6" ];
+
+	then 
+
+		echo "<result>active</result>"
+
+	else
+
+		echo "<result>not active</result>"
+
+fi
+
+
+
+exit 0
