@@ -3,7 +3,7 @@
 #
 #About this Script - enableisight.sh
 #
-# This script re-enables the iSight Camera when it has been disabled by its companion disable.sh script.  Both scripts are based on moving the relevant files to a hidden tmp folder,
+# This script re-enables the iSight Camera when it has been disabled by its companion 'disable isight.sh' script.  Both scripts are based on moving the relevant files to a hidden tmp folder,
 #
 # Script created on / tested with Yosemite 10.10.2
 # Created by
