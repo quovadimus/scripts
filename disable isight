@@ -1,0 +1,31 @@
+#!/bin/bash
+#############################################################################
+#
+#About this Script - disableisight.sh
+#
+# This script disables the iSight Camera by moving the relevant files to /private/tmp/isight.  It can be re-enabled by using the companion script enableisight.sh which will move the files back to their orginial location.
+#
+# This script was created on 10.10.2.
+#
+# Created by
+# Jennifer Unger
+############################################################################
+#	
+dir=/private/tmp/isight
+
+	
+if [[ ! -e $dir ]]; then
+	mkdir $dir
+elif [[ ! -d $dir ]]; then
+	echo '$dir already exists but is not a directory' 1>&2
+
+fi
+	
+mv /System/Library/QuickTime/QuickTimeUSBVDCDigitizer.component/Contents/MacOS/QuickTimeUSBVDCDigitizer /private/tmp/isight
+	
+mv /System/Library/Frameworks/CoreMediaIO.framework/Versions/A/Resources/VDC.plugin/Contents/MacOS/VDC /private/tmp/isight
+	
+mv /Library/CoreMediaIO/Plug-Ins/DAL/AppleCamera.plugin/Contents/MacOS/AppleCamera /private/tmp/isight
+
+
+
