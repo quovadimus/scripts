@@ -1,0 +1,34 @@
+#!/bin/sh
+
+# extension attribute for hot corners, 
+# modified to just report the values found, instead of searching for a particular value
+#
+# Key wvous-$$-corner in the com.apple.dock plist designates this value.  
+# $$is equal to the corner in question, Tl-top left, TR-top right, BL-bottom left, BR-bottom right
+# This can be modified to search for any value set as a hot corner.  
+# Values are as follows (as seen on a 10.10.2 system March 2015)
+# 1 = Null
+# 2= Mission Control
+# 3= Application Windows
+# 4= Desktop
+# 5= Start Screen Saver
+# 6= Disable Screen Saver
+# 7= Dashboard
+# 10= Display Sleep
+# 11= Launch Pad
+# 12= Notification Center
+
+
+#Get the current Value
+
+BL=`defaults read ~/Library/Preferences/com.apple.dock.plist wvous-bl-corner`
+TL=`defaults read ~/Library/Preferences/com.apple.dock.plist wvous-tl-corner`
+TR=`defaults read ~/Library/Preferences/com.apple.dock.plist wvous-tr-corner`
+BR=`defaults read ~/Library/Preferences/com.apple.dock.plist wvous-br-corner`
+	
+#Echo the value into your EA
+
+echo "<result>BL $BL</result>"
+echo "<result>TL $TL</result>"
+echo "<result>BR $BR<result>"
+echo "<result>TR $TR</result>"
