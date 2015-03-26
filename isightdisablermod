@@ -1,0 +1,48 @@
+-- Orginial iSight Disabler from techslaves.org.  I found that the method of just changing permissions on the files would easily be 'undone' when repair permissions in disk utility is run, something that is often done while troubleshooting other issues.  To avoid this problem, the script now creates a directory in /private/tmp to store the files and will move them back into the proper locations when the isight is re-enabled.
+-- All of my testing was done on 10.10.2 machines.
+__
+-- Intel Mac iSight Disabler
+-- Tested on OS X 10.8.5 and OS X 10.9.0
+-- Tested on 2011 13" MBP
+-- Version 5.0 w/ Mavericks Support
+--
+-- Credit to fdoc for Snow Leopard fix in 3.5
+-- Credit to Mike Mc for Mavericks fix in 5.0 (http://techslaves.org/isight-disabler/, Comment 90)
+-- Modified by Jennifer, moving items instead of changing permissions.
+-- 
+
+display dialog "Intel Mac iSight Disabler
+orginially brought to you by techslaves.org and then Jennifer got her hands on it.
+
+Version 5.0
+Support for Mavericks and YoYo
+
+Any applications currently using the iSight will continue to have access until they are quit or restarted." buttons {"Enable iSight", "Disable iSight"} with icon stop
+
+set userChoice to button returned of result
+
+
+if userChoice = "Disable iSight" then
+	
+	do shell script "dir=/private/tmp/isight
+
+		if [[ ! -e $dir ]]; then
+    		mkdir $dir
+		elif [[ ! -d $dir ]]; then
+    		echo '$dir already exists but is not a directory' 1>&2
+		fi" with administrator privileges
+	
+	do shell script "mv /System/Library/QuickTime/QuickTimeUSBVDCDigitizer.component/Contents/MacOS/QuickTimeUSBVDCDigitizer /private/tmp/isight" with administrator privileges
+	
+	do shell script "mv /System/Library/Frameworks/CoreMediaIO.framework/Versions/A/Resources/VDC.plugin/Contents/MacOS/VDC /private/tmp/isight" with administrator privileges
+	
+	do shell script "mv /Library/CoreMediaIO/Plug-Ins/DAL/AppleCamera.plugin/Contents/MacOS/AppleCamera /private/tmp/isight" with administrator privileges
+	
+else if userChoice = "Enable iSight" then
+	do shell script "mv /private/tmp/isight/QuickTimeUSBVDCDigitizer /System/Library/QuickTime/QuickTimeUSBVDCDigitizer.component/Contents/MacOS" with administrator privileges
+	
+	do shell script "mv /private/tmp/isight/VDC /System/Library/Frameworks/CoreMediaIO.framework/Versions/A/Resources/VDC.plugin/Contents/MacOS/" with administrator privileges
+	
+	do shell script "mv /private/tmp/isight/AppleCamera /Library/CoreMediaIO/Plug-Ins/DAL/AppleCamera.plugin/Contents/MacOS/" with administrator privileges
+	
+end if
