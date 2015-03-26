@@ -1,6 +1,7 @@
 #!/bin/sh
 
 # extension attribute to search for a hot corner set to disable screen saver.  You can modify it to search for any setting by changing the value of the 'setting' variable below.  
+# created by Jennifer Unger
 #
 # Key wvous-$$-corner in the com.apple.dock plist designates this value.  
 # $$is equal to the corner in question, Tl-top left, TR-top right, BL-bottom left, BR-bottom right
