@@ -35,11 +35,7 @@ if [ "$BL" = "6" ];
 
 	then 
 
-		echo "<result>active</result>"
-
-	else
-
-		echo "<result>not active</result>"
+		echo "<result>BL</result>"
 
 fi
 
@@ -50,11 +46,7 @@ if [ "$BR" = "6" ];
 
 	then 
 
-		echo "<result>active</result>"
-
-	else
-
-		echo "<result>not active</result>"
+		echo "<result>BR</result>"
 
 fi
 
@@ -65,27 +57,18 @@ if [ "$TL" = "6" ];
 
 	then 
 
-		echo "<result>active</result>"
-
-	else
-
-		echo "<result>not active</result>"
+		echo "<result>TL</result>"
 
 fi
+
 
 #Top Right
 if [ "$TR" = "6" ];
 
 	then 
 
-		echo "<result>active</result>"
-
-	else
-
-		echo "<result>not active</result>"
+		echo "<result>TR</result>"
 
 fi
 
 
-
-exit 0
