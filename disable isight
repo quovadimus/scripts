@@ -1,9 +1,9 @@
 #!/bin/bash
 #############################################################################
 #
-#About this Script - disableisight.sh
+# About this Script - disableisight.sh
 #
-# This script disables the iSight Camera by moving the relevant files to /private/tmp/isight.  It can be re-enabled by using the companion script enableisight.sh which will move the files back to their orginial location.
+# This script disables the iSight Camera by moving the relevant files to /private/tmp/isight.  It can be re-enabled by using the companion script enable isight.sh which will move the files back to their orginial location.
 #
 # This script was created on 10.10.2.
 #
