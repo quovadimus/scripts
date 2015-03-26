@@ -1,7 +1,9 @@
 #!/bin/sh
 
 # extension attribute for hot corners, 
-# modified to just report the values found, instead of searching for a particular value
+# Created by Jennifer Unger
+#
+# modified from first version to just report the values found, instead of searching for a particular value
 #
 # Key wvous-$$-corner in the com.apple.dock plist designates this value.  
 # $$is equal to the corner in question, Tl-top left, TR-top right, BL-bottom left, BR-bottom right
