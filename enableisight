@@ -1,0 +1,18 @@
+#!/bin/bash
+#############################################################################
+#
+#About this Script - enableisight.sh
+#
+# This script re-enables the iSight Camera when it has been disabled by its companion disable.sh script.  Both scripts are based on moving the relevant files to a hidden tmp folder,
+#
+# Created by
+# Jennifer Unger
+############################################################################
+# 
+#
+mv /private/tmp/isight/QuickTimeUSBVDCDigitizer /System/Library/QuickTime/QuickTimeUSBVDCDigitizer.component/Contents/MacOS/
+	
+mv /private/tmp/isight/VDC /System/Library/Frameworks/CoreMediaIO.framework/Versions/A/Resources/VDC.plugin/Contents/MacOS/
+
+mv /private/tmp/isight/AppleCamera /Library/CoreMediaIO/Plug-Ins/DAL/AppleCamera.plugin/Contents/MacOS/
+
