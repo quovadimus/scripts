@@ -22,6 +22,14 @@
 
 setting=6
 
+#get the current user
+
+loggedInUser=`python -c 'from SystemConfiguration import SCDynamicStoreCopyConsoleUser; import sys; username = (SCDynamicStoreCopyConsoleUser(None, None, None) or [None])[0]; username = [username,""][username in [u"loginwindow", None, u""]]; sys.stdout.write(username + "\n");'`
+
+
+
+
+
 #Get the current Value
 
 BL=`defaults read ~/Library/Preferences/com.apple.dock.plist wvous-bl-corner`
@@ -29,46 +37,23 @@ TL=`defaults read ~/Library/Preferences/com.apple.dock.plist wvous-tl-corner`
 TR=`defaults read ~/Library/Preferences/com.apple.dock.plist wvous-tr-corner`
 BR=`defaults read ~/Library/Preferences/com.apple.dock.plist wvous-br-corner`
 	
-#compare them
-#Bottom Left
-if [ "$BL" = "6" ];
+#!/bin/bash
 
-	then 
+BL=`defaults read com.apple.dock wvous-bl-corner`
+TL=`defaults read com.apple.dock wvous-tl-corner`
+TR=`defaults read com.apple.dock wvous-tr-corner`
+BR=`defaults read com.apple.dock wvous-br-corner`
 
-		echo "<result>BL</result>"
-
+if [[ "$TL" = "6" ]]; then
+	echo "<result>Yes</result>"
+elif [[ "$BL" = "6" ]]; then
+	echo "<result>Yes</result>"
+elif [[ "$TR" = "6" ]]; then
+	echo "<result>Yes</result>"
+elif [[ "$BR" = "6" ]]; then
+	echo "<result>Yes</result>"		
+else
+	echo "<result>No</result>"
 fi
 
-
-
-#Bottom Right
-if [ "$BR" = "6" ];
-
-	then 
-
-		echo "<result>BR</result>"
-
-fi
-
-
-
-#Top Left
-if [ "$TL" = "6" ];
-
-	then 
-
-		echo "<result>TL</result>"
-
-fi
-
-
-#Top Right
-if [ "$TR" = "6" ];
-
-	then 
-
-		echo "<result>TR</result>"
-
-fi
-
-
+exit 0
