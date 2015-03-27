@@ -18,7 +18,8 @@
 # 11= Launch Pad
 # 12= Notification Center
 
-
+#identify the bad value
+bad="6"
 
 #get the current user
 
@@ -35,13 +36,13 @@ BR=`defaults read /Users/$loggedInUser/Library/Preferences/com.apple.dock.plist 
 	
 
 
-if [[ "$TL" = "6" ]]; then
+if [[ "$TL" = "$bad" ]]; then
 	echo "<result>Yes</result>"
-elif [[ "$BL" = "6" ]]; then
+elif [[ "$BL" = "$bad" ]]; then
 	echo "<result>Yes</result>"
-elif [[ "$TR" = "6" ]]; then
+elif [[ "$TR" = "$bad" ]]; then
 	echo "<result>Yes</result>"
-elif [[ "$BR" = "6" ]]; then
+elif [[ "$BR" = "$bad" ]]; then
 	echo "<result>Yes</result>"		
 else
 	echo "<result>No</result>"
