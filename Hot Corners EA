@@ -18,9 +18,7 @@
 # 11= Launch Pad
 # 12= Notification Center
 
-#define the bad value
 
-setting=6
 
 #get the current user
 
@@ -28,21 +26,14 @@ loggedInUser=`python -c 'from SystemConfiguration import SCDynamicStoreCopyConso
 
 
 
-
-
 #Get the current Value
 
-BL=`defaults read ~/Library/Preferences/com.apple.dock.plist wvous-bl-corner`
-TL=`defaults read ~/Library/Preferences/com.apple.dock.plist wvous-tl-corner`
-TR=`defaults read ~/Library/Preferences/com.apple.dock.plist wvous-tr-corner`
-BR=`defaults read ~/Library/Preferences/com.apple.dock.plist wvous-br-corner`
+BL=`defaults read /Users/$loggedInUser/Library/Preferences/com.apple.dock.plist wvous-bl-corner`
+TL=`defaults read /Users/$loggedInUser/Library/Preferences/com.apple.dock.plist wvous-tl-corner`
+TR=`defaults read /Users/$loggedInUser/Library/Preferences/com.apple.dock.plist wvous-tr-corner`
+BR=`defaults read /Users/$loggedInUser/Library/Preferences/com.apple.dock.plist wvous-br-corner`
 	
-#!/bin/bash
 
-BL=`defaults read com.apple.dock wvous-bl-corner`
-TL=`defaults read com.apple.dock wvous-tl-corner`
-TR=`defaults read com.apple.dock wvous-tr-corner`
-BR=`defaults read com.apple.dock wvous-br-corner`
 
 if [[ "$TL" = "6" ]]; then
 	echo "<result>Yes</result>"
