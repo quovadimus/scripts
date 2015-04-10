@@ -1,0 +1,38 @@
+#!/bin/bash
+
+#
+############################################################################
+#
+#About this Script calls on cocoadialog to display the computer name and IP address of the current system.
+# created to be used in Self-Service, an easy way for users to locate this information.
+#
+# Requires the CocoaDialog app to be installed.  Current Location is /private/var, can be modified in script
+#
+#Created By Jennifer Unger
+#
+############################################################################
+
+
+
+CD_APP="/private/var/cocoadialog/CocoaDialog.app"
+CD="$CD_APP/Contents/MacOS/CocoaDialog"
+
+
+
+
+
+IP=$( ifconfig | grep "inet " | grep -v 127.0.0.1 | cut -d\  -f2 )
+NAME=$( scutil --get LocalHostName )
+
+
+### Let's get a little more fancy.  Here are 2 bubbles, with custom icons,
+### custom border colors, custom backgrounds, AND custom text colors.
+### We'll even mix stock icons and custom icons.
+"$CD" bubble --debug --no-timeout --titles "Computer Name" "IP Address"       \
+--texts "$NAME" "$IP"  \
+--border-colors "465d1f " "a25f0a"                 \
+--text-colors "000000" "000000"                   \
+--background-tops "b1d98e" "dfa723"               \
+--background-bottoms "bdd98e" "fdde88"            \
+--icon-files "$CD_APP/Contents/Resources/gear.icns"  \
+           "$CD_APP/Contents/Resources/globe.icns"
