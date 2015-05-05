@@ -23,21 +23,21 @@ fi
 
 #if no username is passed then get the value of the logged in user..
 # 
-if [ "$username" == "" ]; then
-#	username==`/bin/ls -l /dev/console | /usr/bin/awk '{ print $3 }'`
+if [ "$username" = "" ]; then
+#	username=`/bin/ls -l /dev/console | /usr/bin/awk '{ print $3 }'`
 	username=`ls -la /dev/console | cut -d " " -f 4`	
 fi
 
 # make sure username isn't the jssadmin account
 
-if [ "$username" == "$jssadmin" ]; then
+if [ "$username" = "$jssadmin" ]; then
 
 	echo "Logged in user is jssadmin"
 
-elseif	[ "$username" == "$admin2" ]; then
-
-	echo "Logged in user is $admin2"
-
+#elseif	[ "$username" = "$admin2" ]; then
+#
+#	echo "Logged in user is $admin2"
+#
 # remove the user from the admin group	
 
 else
