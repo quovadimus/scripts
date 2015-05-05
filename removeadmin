@@ -12,6 +12,7 @@
 # it is the account used to connect to the JSS.  
 username=""
 jssadmin=""
+admin2=""
 
 # CHECK TO SEE IF VALUES WERE PASSED IN PARAMETERS 4 AND, IF SO, ASSIGN TO "PASSWORD"
 
@@ -23,8 +24,8 @@ fi
 #if no username is passed then get the value of the logged in user..
 # 
 if [ "$username" == "" ]; then
-	username==`/bin/ls -l /dev/console | /usr/bin/awk '{ print $3 }'`
-	
+#	username==`/bin/ls -l /dev/console | /usr/bin/awk '{ print $3 }'`
+	username=`ls -la /dev/console | cut -d " " -f 4`	
 fi
 
 # make sure username isn't the jssadmin account
@@ -33,14 +34,18 @@ if [ "$username" == "$jssadmin" ]; then
 
 	echo "Logged in user is jssadmin"
 
+elseif	[ "$username" == "$admin2" ]; then
+
+	echo "Logged in user is $admin2"
+
 # remove the user from the admin group	
 
 else
         /usr/sbin/dseditgroup -o edit -d $username -t user admin
         
         echo "Removed $username from admin group"
+        
             
 fi
     
     
-##user=`ls -la /dev/console | cut -d " " -f 4`
