@@ -16,7 +16,7 @@ admin2=""
 
 # CHECK TO SEE IF VALUES WERE PASSED IN PARAMETERS 4 AND, IF SO, ASSIGN TO "PASSWORD"
 
-if [ "$4" != "" ] && [ "$username" == "" ]; then
+if [ "$4" != "" ] && [ "$username" = "" ]; then
     username=$4
 fi
 
