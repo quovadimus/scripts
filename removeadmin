@@ -34,10 +34,10 @@ if [ "$username" = "$jssadmin" ]; then
 
 	echo "Logged in user is jssadmin"
 
-#elseif	[ "$username" = "$admin2" ]; then
-#
-#	echo "Logged in user is $admin2"
-#
+elif	[ "$username" = "$admin2" ]; then
+
+	echo "Logged in user is $admin2"
+
 # remove the user from the admin group	
 
 else
