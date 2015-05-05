@@ -1,6 +1,15 @@
 #!/bin/bash
+#############################################################################
+#
+# About this Script removeadmin.sh
+# Remove Admin rights from a user account.  Either specify the username in the hardcoded values, pass the username through to the script
+# as $4 or get the current logged in user.
+# Script will also check for and omit a specified admin account that you want to maintain its privileges. 
+#
+# Created By Jennifer Unger
 
-# HARDCODED VALUES ARE SET HERE
+# HARDCODED VALUES ARE SET HERE; jssadmin refers to the admin acount that you want to keep it's admin privlidges, in this particular case
+# it is the account used to connect to the JSS.  
 username=""
 jssadmin=""
 
@@ -23,7 +32,9 @@ fi
 if [ "$username" == "$jssadmin" ]; then
 
 	echo "Logged in user is jssadmin"
-	
+
+# remove the user from the admin group	
+
 else
         /usr/sbin/dseditgroup -o edit -d $username -t user admin
         
