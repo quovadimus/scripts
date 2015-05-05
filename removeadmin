@@ -1,0 +1,34 @@
+#!/bin/bash
+
+# HARDCODED VALUES ARE SET HERE
+username=""
+
+
+# CHECK TO SEE IF VALUES WERE PASSED IN PARAMETERS 4 AND, IF SO, ASSIGN TO "PASSWORD"
+
+if [ "$4" != "" ] && [ "$username" == "" ]; then
+    username=$4
+fi
+
+
+#if no username is passed then get the value of the logged in user..
+# 
+if [ "$username" == "" ]; then
+	username==`/bin/ls -l /dev/console | /usr/bin/awk '{ print $3 }'`
+	
+fi
+
+# make sure username isn't the jssadmin account
+
+if [ "$username" == "$jssadmin" ]; then
+
+	echo "Logged in user is jssadmin"
+	
+else
+        /usr/sbin/dseditgroup -o edit -d $username -t user admin
+        
+        echo "Removed $username from admin group"
+            
+fi
+    
+    
