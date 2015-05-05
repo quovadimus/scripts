@@ -28,7 +28,7 @@ if [ "$username" = "" ]; then
 	username=`ls -la /dev/console | cut -d " " -f 4`	
 fi
 
-# make sure username isn't the jssadmin account
+# make sure username isn't the jssadmin account or any additional admin accounts
 
 if [ "$username" = "$jssadmin" ]; then
 
