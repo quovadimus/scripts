@@ -13,10 +13,10 @@
 # Key wvous-$$-corner in the com.apple.dock plist designates this value.  
 # $$is equal to the corner in question, Tl-top left, TR-top right, BL-bottom left, BR-bottom right
 
-BL=`defaults read ~/Library/Preferences/com.apple.dock.plist wvous-bl-corner`
-TL=`defaults read ~/Library/Preferences/com.apple.dock.plist wvous-tl-corner`
-TR=`defaults read ~/Library/Preferences/com.apple.dock.plist wvous-tr-corner`
-BR=`defaults read ~/Library/Preferences/com.apple.dock.plist wvous-br-corner`
+BL=$(defaults read ~/Library/Preferences/com.apple.dock.plist wvous-bl-corner)
+TL=$(defaults read ~/Library/Preferences/com.apple.dock.plist wvous-tl-corner)
+TR=$(defaults read ~/Library/Preferences/com.apple.dock.plist wvous-tr-corner)
+BR=$(defaults read ~/Library/Preferences/com.apple.dock.plist wvous-br-corner)
 
 # Bottom Left
 if [ "$BL" = "6" ];
