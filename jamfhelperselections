@@ -1,0 +1,139 @@
+#!/bin/bash
+#
+# ABOUT THIS PROGRAM
+#
+# NAME
+#	jamfhelper.sh -- Launch a splash screen while instalations are happening in the background.
+# 
+# SYNOPSIS
+#	sudo jamfhelper.sh
+#
+# The following command will provide a list of all verbs that can be used to customize the message. 
+#	/Library/Application\ Support/JAMF/bin/jamfHelper.app/Contents/MacOS/jamfHelper -help
+# 
+# The following is a short summary of the verbs indicated in this script.
+#
+#	If the $windowtype parameter is specified (parameter 4), this value will set the type of window, Heads up Display, Utility or Full screen, [hud | utility | fs]
+#		If you use $windowtype with [fs] you should include [jamf killJAMFHelper] in your script to close the message dialog.
+#	If the $iconpath parameter is specified (parameter 5), the value will set the location of an icon that will appear in the message
+#	If the $heading parameter is specified (parameter 6), the value will sets the heading of the window to the specified string
+#	If the $description parameter is specified (parameter 7), the value will set the main contents of the window to the specified string
+#	If the $alignheading parameter is specified (parameter 8), the value will align the heading to the spcified alignment, [right | left | center | justified | natural]
+#	If the $aligndescription parameter is specified (parameter 9), the value will align the description to the specified alignment, [right | left | center | justified | natural]
+#
+#
+# USAGE: 
+#	jamfHelper -windowType [-windowPostion] [-title] [-heading] [-description] [-icon] [-button1] [-button2] [-defualtButton] [-cancelButton] [-showDelayOptions]
+#		 [-alignDescription] [-alignHeading] [-alignCountdown] [-timeout] [-countdown] [-iconSize] [-lockHUD] [-startLaunchd] [-fullScreenIcon] [-kill]
+#
+#
+#
+#
+#
+# 
+####################################################################################################
+#
+# HISTORY
+#
+#	Version: 1.0
+#
+#	- Created by Jennifer Unger on August 28th, 2013
+#
+####################################################################################################
+
+# DEFINE VARIABLES & READ IN PARAMETERS
+#
+####################################################################################################
+#
+# HARDCODED VALUES ARE SET HERE
+windowtype="fs"
+iconpath="/System/Library/CoreServices/Installer.app/Contents/Resources/package.icns"
+heading="Awesomely Awesome Awesomeness"
+description="Please wait while really cool magic stuff happens behind this curtain.  Your machine will let you know when it is ready.  Go out and have an ice-cream or something.  In fact, bring me back one.  Thanks in advance for the ice-cream."
+alignheading="center"
+aligndescription="center"
+
+
+# CHECK TO SEE IF A VALUE WAS PASSED IN PARAMETER 4 AND, IF SO, ASSIGN TO "windowtype"
+if [ "$4" != "" ] && [ "$windowtype" == "" ];then
+    windowtype=$4
+fi
+
+# CHECK TO SEE IF A VALUE WAS PASSED IN PARAMETER 5 AND, IF SO, ASSIGN TO "iconpath"
+if [ "$5" != "" ] && [ "$iconpath" == "" ];then
+    iconpath=$5
+fi
+
+# CHECK TO SEE IF A VALUE WAS PASSED IN PARAMETER 6 AND, IF SO, ASSIGN TO "heading"
+if [ "$6" != "" ] && [ "$heading" == "" ];then
+    heading=$6
+fi
+
+# CHECK TO SEE IF A VALUE WAS PASSED IN PARAMETER 7 AND, IF SO, ASSIGN TO "description"
+if [ "$4" != "" ] && [ "$description" == "" ];then
+    description=$4
+fi
+
+# CHECK TO SEE IF A VALUE WAS PASSED IN PARAMETER 8 AND, IF SO, ASSIGN TO "alignheading"
+if [ "$5" != "" ] && [ "$alignheading" == "" ];then
+    alignheading=$5
+fi
+
+# CHECK TO SEE IF A VALUE WAS PASSED IN PARAMETER 9 AND, IF SO, ASSIGN TO "aligndescription"
+if [ "$6" != "" ] && [ "$aligndescription" == "" ];then
+    aligndescription=$6
+fi
+
+####################################################################################################
+# 
+# SCRIPT CONTENTS - DO NOT MODIFY BELOW THIS LINE
+#
+####################################################################################################
+
+
+
+if [ "$$windowtype" == "" ]; then
+	echo "Error:  No window type has been specified."
+	exit 1
+fi
+
+if [ "$iconpath" == "" ]; then
+	echo "Error:  No icon path has been specified."
+	exit 1
+fi
+
+if [ "$heading" == "" ]; then
+	echo "Error: No heading was specified."
+	exit 1
+fi
+
+if [ "$description" == "" ]; then
+	echo "Error:  No description has been specified."
+	exit 1
+fi
+
+if [ "$alignheading" == "" ]; then
+	echo "Error:  No alignment for the heading has been specified."
+	exit 1
+fi
+
+if [ "$aligndescription" == "" ]; then
+	echo "Error: No alignment for the description was specified."
+	exit 1
+fi
+
+
+
+/Library/Application\ Support/JAMF/bin/jamfHelper.app/Contents/MacOS/jamfHelper -windowType "$windowtype" -heading "$heading" -description "$description" -iconpath "$iconpath" -alignHeading "$alignheading" -aligndescription "$aligndescription" &
+
+
+##  Do your other stuff now
+
+sudo jamf policy -trigger addpass
+
+
+
+## stop jamfhelper
+
+
+jamf killJAMFHelper
