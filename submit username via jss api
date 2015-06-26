@@ -1,6 +1,7 @@
 #!/bin/bash
 
 #CocoaDialog prompts an input box asking the user for their username
+#requires CocoaDialog to be installed.  Verify $CD references the correct location.
 
 #use set -x for troubleshooting, comment out if not needed
 #set -x
