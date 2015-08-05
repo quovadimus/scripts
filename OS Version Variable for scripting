@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Use one of the examples given above to create the OS_Version variable
+
+
+OS_Version=(system_profiler SPSoftwareDataType | grep "System Version" | awk '{print $6}')
+
+
+if [[ ${OS_Version} == 10.10.3 ]]; then
+   echo "Operating System is a match... will continue on."
+else
+   echo "Operating System is NOT a match... will NOT continue."
+fi
+
