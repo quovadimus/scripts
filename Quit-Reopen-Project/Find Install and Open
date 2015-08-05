@@ -1,0 +1,105 @@
+#!/bin/bash
+set -x #un comment for troubleshooting
+#
+# Title:  Find Install and Open
+# Author: Jennifer Unger
+# Date:   June 30, 2015
+#
+# Purpose:  Find and quit applications that need to be closed in order to run an update or an installer.
+# Example: Safari and Chrome must be closed to update Office, or install Creative Suite. Browsers should be closed and reopened when updating plugins, ie java or flash.
+# Next, the calls a JSS policy custom trigger.  This policy should have a notification to the user before running the install that their applications will be quit.
+# After the action in the policy, the script will read the receipts, remove them and reopen any necessary applications.
+
+
+# HARDCODED VALUES ARE SET HERE; App1 is the process title you want to quit out of.  App2 is for a second application.  As Casper uses $1, $2 and $3, we are starting with $4.
+
+
+app1="Safari"
+app2=""
+trigger="quittest"
+
+# CHECK TO SEE IF VALUES WERE PASSED IN PARAMETERS 4, 5 AND 6, IF SO, ASSIGN TO "PASSWORD"
+
+if [ "$4" != "" ] && [ "$app1" = "" ]; then
+    app1=$4
+fi
+
+if [ "$5" != "" ] && [ "$app2" = "" ]; then
+    app2=$5
+fi
+
+if [ "$6" != "" ] && [ "$trigger" = "" ]; then
+    trigger=$6
+fi
+
+
+#Verify values have been established for required variables
+
+if [ "$$app1" == "" ]; then
+	echo "Error:  No application has been specified."
+	exit 1
+fi
+
+if [ "$$trigger" == "" ]; then
+	echo "Error:  No trigger has been specified."
+	exit 1
+fi
+
+####################################################################################################
+
+
+#Check to see if the relevant applications are running
+
+quit1=$(osascript -e 'tell app "System Events" to count processes whose name is "'$app1'"')
+quit2=$(osascript -e 'tell app "System Events" to count processes whose name is "'$app2'"')
+
+
+# If the application is running, create receipt and quit the process.
+
+if [[ "$quit1" != 0 ]] ; 
+	then
+ 		mkdir -p /private/tmp/running
+ 		touch /private/tmp/running/"$app1"
+ 		osascript -e 'quit app "'$app1'"'
+fi
+
+#  
+# if [[ "$quit2" != 0 ]] ; 
+# 	then
+#  		mkdir -p /private/tmp/running
+#  		touch /private/tmp/running/"$app2"
+#  		osascript -e 'quit app "'$app2'"'
+# fi
+# 
+
+## additional possibilities, CocoaDialog or JAMFHelper used to create the user notification, so it will not need to be established in the policy?
+
+
+# Run JAMF Policy
+
+jamf policy -trigger "$trigger"
+
+#reopen applications if needed
+
+open2="/private/tmp/running/"$app2""
+
+open1="private/tmp/running/"$app1""
+
+
+if [ -f "$open1" ]
+then
+	open -a /Applications/"$app1".app
+	rm /private/tmp/running/"$app1"
+	
+fi
+
+# if [ -f "$open2" ]
+# then
+# 	open -a /Applications/"$app2".app
+# 	rm /private/tmp/running/"$app2"
+# 	rm /private/tmp/running
+# fi
+# 
+# 
+
+
