@@ -1,0 +1,75 @@
+#!/bin/bash
+
+# Title:  Find Install and Open
+# Author: Jennifer Unger
+# Date:   June 30, 2015
+#
+# Purpose:  Find and quit applications that need to be closed in order to run an update or an installer.
+# Example: Safari and Chrome must be closed to update Office, or install Creative Suite. Browsers should be closed and reopened when updating plugins, ie java or flash.
+# Next, the calls a JSS policy custom trigger.  This policy should have a notification to the user before running the install that their applications will be quit.
+# After the action in the policy, the script will read the receipts, remove them and reopen any necessary applications.
+
+set -x -e
+
+app1="Numbers"
+trigger="quittest"
+
+
+# CHECK TO SEE IF VALUES WERE PASSED IN PARAMETERS 4, 5 AND 6, IF SO, ASSIGN TO "PASSWORD"
+
+if [ "$4" != "" ] && [ "$app1" = "" ]; then
+    app1=$4
+fi
+
+if [ "$5" != "" ] && [ "$trigger" = "" ]; then
+    trigger=$5
+fi
+
+
+
+#Verify values have been established for required variables
+
+if [ "$app1" == "" ]; then
+	echo "Error:  No application has been specified."
+	exit 1
+fi
+
+if [ "$trigger" == "" ]; then
+	echo "Error:  No trigger has been specified."
+	exit 1
+fi
+
+#Check to see if the relevant applications are running
+
+quit1=$(osascript -e 'tell app "System Events" to count processes whose name is "'$app1'"')
+#quit2=$(osascript -e 'tell app "System Events" to count processes whose name is "'$app2'"')
+
+
+# If the application is running, create receipt and quit the process.
+
+if [[ "$quit1" != 0 ]] ; 
+	then
+ 		mkdir -p /private/tmp/running
+ 		touch /private/tmp/running/"$app1"
+ 		osascript -e 'quit app "'$app1'"'
+fi
+
+# Run JAMF Policy
+
+#jamf policy -trigger "$trigger"
+
+#reopen applications if needed
+
+open1=private/tmp/running/"$app1"
+
+
+if [ -f "$open1" ]
+then
+	open -a /Applications/"$app1".app
+	rm /private/tmp/running/"$app1"
+	
+fi
+
+
+exit
+
