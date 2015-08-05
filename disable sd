@@ -1,0 +1,59 @@
+#!/bin/sh
+###################
+#
+# ABOUT THIS PROGRAM - modified from jamfs disable usb script
+#
+# NAME
+#	disableSD.sh -- Disable the SD drivers.
+#
+# SYNOPSIS
+#	sudo disableSD.sh
+#	sudo disableSD.sh <targetVolume> <computerName> <currentUsername>
+#
+# DESCRIPTION
+#	This script disables the USB drivers, thereby disabling all functionality of the USB ports.
+#	After running this script, the USB drivers will be moved to:
+#
+#		/Library/Application Support/JAMF/DisabledExtensions/
+#
+#	This way, the USB drivers could be re-enabled in the future.  After running this script, 
+#	the machine will need to be rebooted for the settings to take effect.
+#
+####################################################################################################
+#
+# HISTORY
+#
+#	Version: 1.1
+#
+#	- Created by Nick Amundsen on August 6th, 2008
+#	- Modified by Nick Amundsen on June 25th, 2009
+#	- Modified by jennifer on jul 22 2015 for just the SD card
+####################################################################################################
+#
+# DEFINE VARIABLES & READ IN PARAMETERS
+#
+####################################################################################################
+
+# HARDCODED VALUE FOR "targetVolume" IS SET HERE
+targetVolume=""
+
+
+# CHECK TO SEE IF A VALUE WAS PASSED IN PARAMETER 1 AND, IF SO, ASSIGN TO "USERNAME"
+if [ "$1" != "" ] && [ "$targetVolume" == "" ];then
+    targetVolume=$1
+fi
+
+####################################################################################################
+# 
+# SCRIPT CONTENTS - DO NOT MODIFY BELOW THIS LINE
+#
+####################################################################################################
+
+echo "Disabling the CD Drivers..."
+
+if [ -d "$targetVolume/Library/Application Support/JAMF/DisabledExtensions/" ]; then
+	/bin/mv "$targetVolume/System/Library/Extensions/AppleSDXC.kext" "$targetVolume/Library/Application Support/JAMF/DisabledExtensions/"
+else
+	/bin/mkdir -p "$targetVolume/Library/Application Support/JAMF/DisabledExtensions/"
+	/bin/mv "$targetVolume/System/Library/Extensions/AppleSDXC.kext" "$targetVolume/Library/Application Support/JAMF/DisabledExtensions/"
+fi
