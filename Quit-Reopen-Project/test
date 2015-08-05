@@ -1,0 +1,17 @@
+#!/bin/bash
+
+app1="Numbers"
+
+open1="private/tmp/running/"$app1""
+
+
+if [ -f "$open1" ]
+then
+	open -a /Applications/"$app1".app
+	rm /private/tmp/running/"$app1"
+	
+fi
+
+
+exit
+
