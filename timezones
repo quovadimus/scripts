@@ -1,0 +1,27 @@
+#!/bin/sh
+#
+############################################################################
+#
+#About this Script
+# Script Sets the NTP server and TimeZone
+
+############################################################################
+
+
+timeServer=
+
+# Use America/New_York for Eastern and America/Chicago for Central or America/Los_Angeles for Pacific
+
+timeZone=
+
+echo "Setting network time server to $timeServer"
+
+/usr/sbin/systemsetup -setnetworktimeserver $timeServer
+
+echo "Setting time zone for OS $OS"
+
+/usr/sbin/systemsetup -settimezone "$timeZone"
+
+echo "Refreshing clock in menu bar"
+
+/usr/bin/killall SystemUIServer
